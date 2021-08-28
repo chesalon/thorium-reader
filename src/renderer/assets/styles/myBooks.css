@@ -493,3 +493,32 @@
 		padding: 10px;
 	}
 }
+.orgdiv
+{
+	margin-top: 20px;
+	/* float: left; */
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.orgdivleft
+{
+	margin-top: 20px;
+	float: left;
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.aboutdetails
+{	
+	font-size: 0.8rem;
+}
+
+.aboutdiv
+{
+	font-size: 1.0rem;
+}
+.aboutheading
+{
+	font-weight: bold;
+}
