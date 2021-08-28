@@ -17,6 +17,7 @@ import AllPublicationPage from "./components/searchResult/AllPublicationPage";
 import TagSearchResult from "./components/searchResult/TagSearchResult";
 import TextSearchResult from "./components/searchResult/TextSearchResult";
 import Settings from "./components/settings/Settings";
+import aboutetbn from "./components/about/aboutetbn";
 
 interface Route {
     path: string;
@@ -54,16 +55,21 @@ const _routes = {
         exact: true,
         component: Browser,
     } as Route,
+    "/about": {
+        path: "/about",
+        exact: true,
+        component: aboutetbn,
+    } as Route,
     // "/settings/languages": {
     //     path: "/settings/languages",
     //     exact: false,
     //     component: LanguageSettings,
     // } as Route,
-    "/settings": {
-        path: "/settings",
-        exact: false,
-        component: Settings,
-    } as Route,
+    // "/settings": {
+    //     path: "/settings",
+    //     exact: false,
+    //     component: Settings,
+    // } as Route,
     "/library/search/text": {
         // ILibrarySearchText
         path: "/library/search/text/:value",
