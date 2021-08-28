@@ -37,11 +37,17 @@ const headerNav: NavigationHeader[] = [
         styles: [],
     },
     {
-        route: "/settings",
-        label: "settings",
-        matchRoutes: ["/settings"],
-        styles: [styles.preferences],
+        route: "/about",
+        label: "abouteTBN",
+        matchRoutes: ["/about"],
+        styles: [],
     },
+    // {
+    //     route: "/settings",
+    //     label: "settings",
+    //     matchRoutes: ["/settings"],
+    //     styles: [],//styles: [styles.preferences]
+    // },
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
