@@ -17,7 +17,7 @@ import PublicationCard from "readium-desktop/renderer/library/components/publica
 import Slider from "readium-desktop/renderer/library/components/utils/Slider";
 import { ILibraryRootState } from "readium-desktop/renderer/library/redux/states";
 
-import AboutThoriumButton from "./AboutThoriumButton";
+//import AboutThoriumButton from "./AboutThoriumButton";
 import NoPublicationInfo from "./NoPublicationInfo";
 import SortMenu from "./SortMenu";
 import TagLayout from "./TagLayout";
@@ -140,7 +140,7 @@ class CatalogGridView extends React.Component<IProps, IState> {
                         ? <NoPublicationInfo />
                         : <></>
                 }
-                <AboutThoriumButton />
+                {/* <AboutThoriumButton /> */}
             </>
         );
     }
