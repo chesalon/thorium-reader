@@ -48,6 +48,9 @@ class aboutetbn extends React.Component<IProps, undefined> {
                 <p className={styles.aboutheading}>Developed By</p>
                 <p>Chesalon USA, Inc.</p>
                 <p>http://www.chesalon.com</p>
+                <p className={styles.aboutheading}>EDRLab</p>
+                <p>EDRLab is an international, non-profit development laboratory, 
+                    working on the deployment of an open, interoperable and accessible digital publishing ecosystem, worldwide.</p>
                 <img src="https://storage.googleapis.com/prothumia/repfr.png" alt="eTBN" width="431px" height="184px"/></div>
             </LibraryLayout>
             
