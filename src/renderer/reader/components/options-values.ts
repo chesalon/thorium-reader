@@ -77,6 +77,7 @@ export const paraSpacing: string[] = [
 ];
 
 export const lineHeight: string[] = [
+    "0", // noop
     "1",
     "1.125",
     "1.25",
@@ -122,6 +123,9 @@ export interface IReaderMenuProps {
 }
 
 export type TdivinaReadingMode = "single" | "double" | "scroll" | "guided";
+export const isDivinaReadingMode = (v: any): v is TdivinaReadingMode => {
+    return ["single", "double", "scroll", "guided"].includes(v);
+};
 
 export interface IReaderOptionsProps {
     indexes: AdjustableSettingsNumber;

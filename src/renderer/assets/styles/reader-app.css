@@ -148,6 +148,16 @@ button {
 
 .publication_viewport {
     overflow: hidden;
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: white;
 }
 
 .publication_viewport_container {
@@ -1273,4 +1283,23 @@ input[type=radio] + label {
   & label {
     display: inline-block !important;
   }
+}
+
+
+.divina_grid_container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes colorChange {
+  0%{opacity: 0}
+  50%{opacity: 1}
+  100%{opacity: 0}
+}
+.divina_grid_item {
+  animation: colorChange 3s infinite;
+  background-color:#d8d8d8;
 }

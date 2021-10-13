@@ -5,18 +5,19 @@
 // that can be found in the LICENSE file exposed on Github (readium) in the project repository.
 // ==LICENSE-END==
 
-import { ok } from "assert";
 import * as debug_ from "debug";
 import { injectable } from "inversify";
 import * as lunr from "lunr";
 import * as PouchDB from "pouchdb-core";
 import { Identifiable } from "readium-desktop/common/models/identifiable";
 import { Timestampable } from "readium-desktop/common/models/timestampable";
+import { ok } from "readium-desktop/common/utils/assert";
 import { convertMultiLangStringToString } from "readium-desktop/main/converter/tools/localisation";
 import {
     PublicationDocument, PublicationDocumentWithoutTimestampable,
 } from "readium-desktop/main/db/document/publication";
 import { diMainGet } from "readium-desktop/main/di";
+import { aboutFilteredDocs } from "readium-desktop/main/filter";
 import { publicationActions } from "readium-desktop/main/redux/actions";
 import { Unsubscribe } from "redux";
 
@@ -26,7 +27,7 @@ import * as lunrmulti from "@lunr-languages/lunr.multi.js";
 import * as lunrstemmer from "@lunr-languages/lunr.stemmer.support.js";
 
 import { ExcludeTimestampableAndIdentifiable } from "./base";
-import { aboutFilteredDocs } from "readium-desktop/main/filter";
+import { PublicationView } from "readium-desktop/common/views/publication";
 
 const debug = debug_("readium-desktop:main:db:repository:publication");
 
@@ -212,7 +213,7 @@ export class PublicationRepository  /* extends BaseRepository<PublicationDocumen
     }
 
 
-    public async searchByTitle(title: string): Promise<PublicationDocument[]> {
+    public async searchByTitleAndAuthor(titleOrAuthor: string): Promise<PublicationDocument[]> {
 
         try {
 
@@ -221,6 +222,12 @@ export class PublicationRepository  /* extends BaseRepository<PublicationDocumen
 
             const pubs = Object.values(state.publication.db)
                 .filter((v) => !v.removedButPreservedToAvoidReMigration);
+
+            const publicationViewConverter = diMainGet("publication-view-converter");
+            const pubViews: PublicationView[] = [];
+            for (const pub of pubs) {
+                pubViews.push(await publicationViewConverter.convertDocumentToView(pub));
+            }
 
             const indexer = lunr(function (this: any) {
 
@@ -231,11 +238,13 @@ export class PublicationRepository  /* extends BaseRepository<PublicationDocumen
                 }
 
                 this.field("title", { boost: 10 });
+                this.field("author", { boost: 5 });
                 // this.setRef("id");
 
-                const docs = pubs.map((v) => ({
+                const docs = pubViews.map((v) => ({
                     id: v.identifier,
                     title: v.title,
+                    author: v.authors.join(" "),
                 }));
 
                 docs.forEach((v) => {
@@ -243,7 +252,7 @@ export class PublicationRepository  /* extends BaseRepository<PublicationDocumen
                 });
             });
 
-            const res = indexer.search(title);
+            const res = indexer.search(titleOrAuthor);
             if (!res) {
                 return [];
             }
